@@ -1,0 +1,7 @@
+1：上面validate和find_nonce的复杂度分别是多少？它们是什么关系？分别属于NP还是P？
+validate函数主要取决于transaction的长度，只需要扫描transaction的长度，认为是O（n）的复杂度，是P问题；
+findnonce主要取决于找到值的概率，认为是指数复杂度，但是应该可以在多项式时间内找判定，所以认为属于NP；
+findnonce与validate的关系是，findnonce这个NP问题可以有validate这个P算法进行判定。
+
+2: 如果想把“Alice send .1 coins to Kate”改成“Alice send 100 coins to Kate”，计算一个新nonce来保持“块哈希”值不变，算法运行时间是多少？ 
+Sha256共会产生2^256种哈希值，需要对哈希值进行遍历来找到使哈希值不变的nonce。所以在假定validate函数处理1位transaction的时间为m，transaction为n位长度，计算机每秒处理k个数据的情况下，算法期望的运行时间为(2^255)*n*m/k
